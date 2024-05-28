@@ -1,0 +1,102 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output = "./userClient"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_USER_URL")
+}
+
+// Accounts
+// userId (PK) INTEGER NOT NULL AUTO_INCREMENT
+// accountId (PK) STRING NOT NULL
+// accountPassword STRING NOT NULL
+// accountName STRING NOT NULL
+model Accounts {
+  userId          Int    @id @unique @default(autoincrement()) @map("user_id")
+  accountId       String @unique @map("account_id")
+  accountPassword String @map("account_password")
+  accountName     String @map("account_name")
+
+  // 계정(Accounts) 테이블과 캐릭터 정보(Characters) 테이블이 1:N 관계를 맺습니다.
+  characters Characters[]
+
+  @@map("accounts")
+}
+
+// Characters
+// characterId (PK) INTEGER NOT NULL AUTO_INCREMENT
+// characterName STRING NOT NULL
+// characterHealth INTEGER NOT NULL (default 500)
+// characterPower INTEGER NOT NULL (default 100)
+// characterMoney INTEGER NOT NULL (default 10000)
+model Characters{
+  characterId     Int     @id @default(autoincrement()) @map("character_id")
+  accountId       String  @map("account_id")
+  characterName   String  @unique @map("character_name")
+  characterHealth Int     @default(500)   @map("character_health")
+  characterPower  Int     @default(100)   @map("character_power")
+  characterMoney  Int     @default(10000) @map("character_money")
+
+  // Accounts 테이블과의 관계를 설정합니다.
+  account Accounts @relation(fields: [accountId], references: [accountId], onDelete: Cascade)
+
+  // 캐릭터 정보(Characters) 테이블과 캐릭터 인벤토리(CharactersInventory) 테이블이 1:N 관계를 맺습니다.
+  charactersInventory CharactersInventory[]
+
+  // 캐릭터 정보(Characters) 테이블과 캐릭터 장비장착(CharactersEquipment) 테이블이 1:N 관계를 맺습니다.
+  charactersEquipment CharactersEquipment[]
+
+  @@map("characters")
+}
+
+// CharactersInventory
+// itemCode INTEGER NOT NULL
+// itemName STRING NOT NULL
+// itemHealth INTEGER NOT NULL (default 0)
+// itemPower INTEGER NOT NULL (default 0)
+// itemPrice INTEGER NOT NULL (default 0)
+// itemCount INTEGER NOT NULL
+model CharactersInventory{
+  characterId Int  @map("character_id")
+  itemCode    Int  @map("item_code")
+  itemName    String @map("item_name")
+  itemHealth  Int @default(0) @map("item_health")
+  itemPower   Int @default(0) @map("item_Power")
+  itemPrice   Int @default(0) @map("item_Price")
+  itemCount   Int  @map("item_count")
+
+  // Characters 테이블과의 관계를 설정합니다.
+  character Characters @relation(fields: [characterId], references: [characterId], onDelete: Cascade)
+
+  @@id([characterId, itemCode])
+  @@map("characters_inventory")
+}
+
+// CharactersEquipment
+// itemCode INTEGER NOT NULL
+// itemName STRING NOT NULL
+// itemHealth INTEGER NOT NULL (default 0)
+// itemPower INTEGER NOT NULL (default 0)
+// itemPrice INTEGER NOT NULL (default 0)
+model CharactersEquipment{
+  characterId Int  @map("character_id")
+  itemCode    Int  @map("item_code")
+  itemName    String @map("item_name")
+  itemHealth  Int @default(0) @map("item_health")
+  itemPower   Int @default(0) @map("item_Power")
+  itemPrice   Int @default(0) @map("item_Price")
+
+  // Characters 테이블과의 관계를 설정합니다.
+  character Characters @relation(fields: [characterId], references: [characterId], onDelete: Cascade)
+
+  @@id([characterId, itemCode])
+  @@map("characters_equipment")
+}
