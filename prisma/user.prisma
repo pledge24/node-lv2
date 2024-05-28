@@ -59,18 +59,10 @@ model Characters{
 
 // CharactersInventory
 // itemCode INTEGER NOT NULL
-// itemName STRING NOT NULL
-// itemHealth INTEGER NOT NULL (default 0)
-// itemPower INTEGER NOT NULL (default 0)
-// itemPrice INTEGER NOT NULL (default 0)
 // itemCount INTEGER NOT NULL
 model CharactersInventory{
   characterId Int  @map("character_id")
   itemCode    Int  @map("item_code")
-  itemName    String @map("item_name")
-  itemHealth  Int @default(0) @map("item_health")
-  itemPower   Int @default(0) @map("item_Power")
-  itemPrice   Int @default(0) @map("item_Price")
   itemCount   Int  @map("item_count")
 
   // Characters 테이블과의 관계를 설정합니다.
@@ -82,17 +74,9 @@ model CharactersInventory{
 
 // CharactersEquipment
 // itemCode INTEGER NOT NULL
-// itemName STRING NOT NULL
-// itemHealth INTEGER NOT NULL (default 0)
-// itemPower INTEGER NOT NULL (default 0)
-// itemPrice INTEGER NOT NULL (default 0)
 model CharactersEquipment{
   characterId Int  @map("character_id")
   itemCode    Int  @map("item_code")
-  itemName    String @map("item_name")
-  itemHealth  Int @default(0) @map("item_health")
-  itemPower   Int @default(0) @map("item_Power")
-  itemPrice   Int @default(0) @map("item_Price")
 
   // Characters 테이블과의 관계를 설정합니다.
   character Characters @relation(fields: [characterId], references: [characterId], onDelete: Cascade)

@@ -269,10 +269,6 @@ router.post('/characters/:characterId/buyItems', auth, async (req, res) => {
             data: {
               characterId: +characterId,
               itemCode: curItemInfo.itemCode,
-              itemName: curItemInfo.itemName,
-              itemHealth: curItemInfo.itemHealth,
-              itemPower: curItemInfo.itemPower,
-              itemPrice: curItemInfo.itemPrice,
               itemCount: +count,
             },
           });
@@ -379,8 +375,14 @@ router.delete('/characters/:characterId/sellItems', auth, async (req, res) => {
         });
       }
 
+      const item_info = await prisma_gamedata.items.findUnique({
+        where: {
+          itemCode: +itemCode,
+        },
+      }); 
+
       // 해당 아이템의 판매 금액을 총 판매 금액에 추가합니다.
-      totalPrice += item.itemPrice * +count * 0.6;
+      totalPrice += item_info.itemPrice * +count * 0.6;
     }
 
     //console.log(itemInfoList);
@@ -482,16 +484,32 @@ router.get('/characters/:characterId/inventory', auth, async (req, res) => {
     }
 
     // 캐릭터-인벤토리 DB에서 characterId를 가지는 데이터들을 가져옵니다.
-    const inventory = await prisma.charactersInventory.findMany({
+    const inventoryItemInfo = await prisma.charactersInventory.findMany({
       select: {
         itemCode: true,
-        itemName: true,
-        itemCount: true,
+        itemCount: true
       },
       where: {
         characterId: +characterId,
       },
     });
+
+    let inventory = [];
+    for(let item_info of inventoryItemInfo){
+      const itemInfo = await prisma_gamedata.items.findUnique({
+        select:{
+          itemCode: true,
+          itemName: true,
+        },
+        where: {
+          itemCode: item_info.itemCode,
+        },
+      });
+
+      itemInfo.itemCount = item_info.itemCount;
+
+      inventory.push(itemInfo);
+    }
 
     // 인벤토리 조회 성공 시, 해당 사실을 인벤토리 내역과 함께 클라이언트에게 전달합니다.
     return res.status(200).json({
@@ -527,15 +545,29 @@ router.get('/characters/:characterId/equippedItems', async (req, res) => {
     }
 
     // 캐릭터-장착 DB에서 해당 characterId를 가지는 데이터를 가져옵니다.
-    const equippedItems = await prisma.charactersEquipment.findMany({
-      select: {
-        itemCode: true,
-        itemName: true,
-      },
+    const equippedItemCodes = await prisma.charactersEquipment.findMany({
       where: {
         characterId: +characterId,
       },
+      orderBy: {
+        itemCode: "asc"
+      }
     });
+
+    let equippedItems = [];
+    for(let item_code of equippedItemCodes){
+      const itemInfo = await prisma_gamedata.items.findUnique({
+        select:{
+          itemCode: true,
+          itemName: true,
+        },
+        where: {
+          itemCode: item_code.itemCode,
+        },
+      });
+
+      equippedItems.push(itemInfo);
+    }
 
     // 장착한 아이템 목록 조회 성공 시, 해당 사실을 장착한 아이템 목록과 함께 클라이언트에게 전달합니다.
     return res.status(200).json({
@@ -595,7 +627,7 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
     });
 
     // 캐릭터-장착 DB에서 해당 characterId, itemCode를 가지는 데이터를 가져옵니다.
-    const equippedItem = await prisma.charactersEquipment.findUnique({
+    const equippingItem = await prisma.charactersEquipment.findUnique({
       where: {
         characterId_itemCode: {
           characterId: +characterId,
@@ -612,13 +644,20 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
         .json({
           errormessage: `itemCode: ${itemCode}는 소지하고 있지 않은 아이템입니다.`,
         });
-    } else if (equippedItem) {
+    } else if (equippingItem) {
       return res
         .status(409)
         .json({
           errormessage: `itemCode: ${itemCode}는 이미 장착한 아이템입니다.`,
         });
     }
+
+    // 장착할 아이템에 대한 정보를 items 모델에서 가져옵니다.
+    const equippingItemInfo = await prisma_gamedata.items.findUnique({
+      where:{
+        itemCode: +itemCode
+      }
+    });
 
     // MySQL과 연결된 Prisma 클라이언트를 통해 트랜잭션을 실행합니다.
     const [updatedEquipment, updatedCharacter] = await prisma.$transaction(
@@ -628,10 +667,6 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
           data: {
             characterId: +characterId,
             itemCode: item.itemCode,
-            itemName: item.itemName,
-            itemHealth: item.itemHealth,
-            itemPower: item.itemPower,
-            itemPrice: item.itemPrice,
           },
         });
 
@@ -677,10 +712,10 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
           },
           data: {
             characterHealth: {
-              increment: item.itemHealth,
+              increment: equippingItemInfo.itemHealth,
             },
             characterPower: {
-              increment: item.itemPower,
+              increment: equippingItemInfo.itemPower,
             },
           },
         });
@@ -744,7 +779,7 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
     const { itemCode } = req.body;
 
     // 캐릭터-장착 DB에서 해당 characterId, itemCode를 가지는 데이터를 가져옵니다.
-    const equippedItem = await prisma.charactersEquipment.findUnique({
+    const unequippingItem = await prisma.charactersEquipment.findUnique({
       where: {
         characterId_itemCode: {
           characterId: +characterId,
@@ -754,13 +789,20 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
     });
 
     // 해당 아이템 장착 데이터가 존재하지 않는다면, 해당 사실을 클라이언트에 전달합니다.
-    if (!equippedItem) {
+    if (!unequippingItem) {
       return res
         .status(404)
         .json({
           errormessage: `itemCode: ${itemCode}는 장착하지 않은 아이템입니다.`,
         });
     }
+
+    // 탈착할 아이템에 대한 정보를 items 모델에서 가져옵니다.
+    const unequippingItemInfo = await prisma_gamedata.items.findUnique({
+      where:{
+        itemCode: +itemCode
+      }
+    });
 
     // MySQL과 연결된 Prisma 클라이언트를 통해 트랜잭션을 실행합니다.
     const [updatedCharacter] = await prisma.$transaction(async (tx) => {
@@ -803,11 +845,7 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
         await tx.charactersInventory.create({
           data: {
             characterId: +characterId,
-            itemCode: equippedItem.itemCode,
-            itemName: equippedItem.itemName,
-            itemHealth: equippedItem.itemHealth,
-            itemPower: equippedItem.itemPower,
-            itemPrice: equippedItem.itemPrice,
+            itemCode: unequippingItem.itemCode,
             itemCount: 1,
           },
         });
@@ -820,10 +858,10 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
         },
         data: {
           characterHealth: {
-            decrement: equippedItem.itemHealth,
+            decrement: unequippingItemInfo.itemHealth,
           },
           characterPower: {
-            decrement: equippedItem.itemPower,
+            decrement: unequippingItemInfo.itemPower,
           },
         },
       });

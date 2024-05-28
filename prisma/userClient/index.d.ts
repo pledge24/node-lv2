@@ -3169,48 +3169,30 @@ export namespace Prisma {
   export type CharactersInventoryAvgAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
     itemCount: number | null
   }
 
   export type CharactersInventorySumAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
     itemCount: number | null
   }
 
   export type CharactersInventoryMinAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemName: string | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
     itemCount: number | null
   }
 
   export type CharactersInventoryMaxAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemName: string | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
     itemCount: number | null
   }
 
   export type CharactersInventoryCountAggregateOutputType = {
     characterId: number
     itemCode: number
-    itemName: number
-    itemHealth: number
-    itemPower: number
-    itemPrice: number
     itemCount: number
     _all: number
   }
@@ -3219,48 +3201,30 @@ export namespace Prisma {
   export type CharactersInventoryAvgAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     itemCount?: true
   }
 
   export type CharactersInventorySumAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     itemCount?: true
   }
 
   export type CharactersInventoryMinAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     itemCount?: true
   }
 
   export type CharactersInventoryMaxAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     itemCount?: true
   }
 
   export type CharactersInventoryCountAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     itemCount?: true
     _all?: true
   }
@@ -3354,10 +3318,6 @@ export namespace Prisma {
   export type CharactersInventoryGroupByOutputType = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth: number
-    itemPower: number
-    itemPrice: number
     itemCount: number
     _count: CharactersInventoryCountAggregateOutputType | null
     _avg: CharactersInventoryAvgAggregateOutputType | null
@@ -3383,10 +3343,6 @@ export namespace Prisma {
   export type CharactersInventorySelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     characterId?: boolean
     itemCode?: boolean
-    itemName?: boolean
-    itemHealth?: boolean
-    itemPower?: boolean
-    itemPrice?: boolean
     itemCount?: boolean
     character?: boolean | CharactersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["charactersInventory"]>
@@ -3394,10 +3350,6 @@ export namespace Prisma {
   export type CharactersInventorySelectScalar = {
     characterId?: boolean
     itemCode?: boolean
-    itemName?: boolean
-    itemHealth?: boolean
-    itemPower?: boolean
-    itemPrice?: boolean
     itemCount?: boolean
   }
 
@@ -3415,10 +3367,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       characterId: number
       itemCode: number
-      itemName: string
-      itemHealth: number
-      itemPower: number
-      itemPrice: number
       itemCount: number
     }, ExtArgs["result"]["charactersInventory"]>
     composites: {}
@@ -3817,10 +3765,6 @@ export namespace Prisma {
   interface CharactersInventoryFieldRefs {
     readonly characterId: FieldRef<"CharactersInventory", 'Int'>
     readonly itemCode: FieldRef<"CharactersInventory", 'Int'>
-    readonly itemName: FieldRef<"CharactersInventory", 'String'>
-    readonly itemHealth: FieldRef<"CharactersInventory", 'Int'>
-    readonly itemPower: FieldRef<"CharactersInventory", 'Int'>
-    readonly itemPrice: FieldRef<"CharactersInventory", 'Int'>
     readonly itemCount: FieldRef<"CharactersInventory", 'Int'>
   }
     
@@ -4150,44 +4094,26 @@ export namespace Prisma {
   export type CharactersEquipmentAvgAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
   }
 
   export type CharactersEquipmentSumAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
   }
 
   export type CharactersEquipmentMinAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemName: string | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
   }
 
   export type CharactersEquipmentMaxAggregateOutputType = {
     characterId: number | null
     itemCode: number | null
-    itemName: string | null
-    itemHealth: number | null
-    itemPower: number | null
-    itemPrice: number | null
   }
 
   export type CharactersEquipmentCountAggregateOutputType = {
     characterId: number
     itemCode: number
-    itemName: number
-    itemHealth: number
-    itemPower: number
-    itemPrice: number
     _all: number
   }
 
@@ -4195,44 +4121,26 @@ export namespace Prisma {
   export type CharactersEquipmentAvgAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
   }
 
   export type CharactersEquipmentSumAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
   }
 
   export type CharactersEquipmentMinAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
   }
 
   export type CharactersEquipmentMaxAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
   }
 
   export type CharactersEquipmentCountAggregateInputType = {
     characterId?: true
     itemCode?: true
-    itemName?: true
-    itemHealth?: true
-    itemPower?: true
-    itemPrice?: true
     _all?: true
   }
 
@@ -4325,10 +4233,6 @@ export namespace Prisma {
   export type CharactersEquipmentGroupByOutputType = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth: number
-    itemPower: number
-    itemPrice: number
     _count: CharactersEquipmentCountAggregateOutputType | null
     _avg: CharactersEquipmentAvgAggregateOutputType | null
     _sum: CharactersEquipmentSumAggregateOutputType | null
@@ -4353,20 +4257,12 @@ export namespace Prisma {
   export type CharactersEquipmentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     characterId?: boolean
     itemCode?: boolean
-    itemName?: boolean
-    itemHealth?: boolean
-    itemPower?: boolean
-    itemPrice?: boolean
     character?: boolean | CharactersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["charactersEquipment"]>
 
   export type CharactersEquipmentSelectScalar = {
     characterId?: boolean
     itemCode?: boolean
-    itemName?: boolean
-    itemHealth?: boolean
-    itemPower?: boolean
-    itemPrice?: boolean
   }
 
 
@@ -4383,10 +4279,6 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       characterId: number
       itemCode: number
-      itemName: string
-      itemHealth: number
-      itemPower: number
-      itemPrice: number
     }, ExtArgs["result"]["charactersEquipment"]>
     composites: {}
   }
@@ -4784,10 +4676,6 @@ export namespace Prisma {
   interface CharactersEquipmentFieldRefs {
     readonly characterId: FieldRef<"CharactersEquipment", 'Int'>
     readonly itemCode: FieldRef<"CharactersEquipment", 'Int'>
-    readonly itemName: FieldRef<"CharactersEquipment", 'String'>
-    readonly itemHealth: FieldRef<"CharactersEquipment", 'Int'>
-    readonly itemPower: FieldRef<"CharactersEquipment", 'Int'>
-    readonly itemPrice: FieldRef<"CharactersEquipment", 'Int'>
   }
     
 
@@ -5140,10 +5028,6 @@ export namespace Prisma {
   export const CharactersInventoryScalarFieldEnum: {
     characterId: 'characterId',
     itemCode: 'itemCode',
-    itemName: 'itemName',
-    itemHealth: 'itemHealth',
-    itemPower: 'itemPower',
-    itemPrice: 'itemPrice',
     itemCount: 'itemCount'
   };
 
@@ -5152,11 +5036,7 @@ export namespace Prisma {
 
   export const CharactersEquipmentScalarFieldEnum: {
     characterId: 'characterId',
-    itemCode: 'itemCode',
-    itemName: 'itemName',
-    itemHealth: 'itemHealth',
-    itemPower: 'itemPower',
-    itemPrice: 'itemPrice'
+    itemCode: 'itemCode'
   };
 
   export type CharactersEquipmentScalarFieldEnum = (typeof CharactersEquipmentScalarFieldEnum)[keyof typeof CharactersEquipmentScalarFieldEnum]
@@ -5325,10 +5205,6 @@ export namespace Prisma {
     NOT?: CharactersInventoryWhereInput | CharactersInventoryWhereInput[]
     characterId?: IntFilter<"CharactersInventory"> | number
     itemCode?: IntFilter<"CharactersInventory"> | number
-    itemName?: StringFilter<"CharactersInventory"> | string
-    itemHealth?: IntFilter<"CharactersInventory"> | number
-    itemPower?: IntFilter<"CharactersInventory"> | number
-    itemPrice?: IntFilter<"CharactersInventory"> | number
     itemCount?: IntFilter<"CharactersInventory"> | number
     character?: XOR<CharactersRelationFilter, CharactersWhereInput>
   }
@@ -5336,10 +5212,6 @@ export namespace Prisma {
   export type CharactersInventoryOrderByWithRelationInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
     character?: CharactersOrderByWithRelationInput
   }
@@ -5351,10 +5223,6 @@ export namespace Prisma {
     NOT?: CharactersInventoryWhereInput | CharactersInventoryWhereInput[]
     characterId?: IntFilter<"CharactersInventory"> | number
     itemCode?: IntFilter<"CharactersInventory"> | number
-    itemName?: StringFilter<"CharactersInventory"> | string
-    itemHealth?: IntFilter<"CharactersInventory"> | number
-    itemPower?: IntFilter<"CharactersInventory"> | number
-    itemPrice?: IntFilter<"CharactersInventory"> | number
     itemCount?: IntFilter<"CharactersInventory"> | number
     character?: XOR<CharactersRelationFilter, CharactersWhereInput>
   }, "characterId_itemCode">
@@ -5362,10 +5230,6 @@ export namespace Prisma {
   export type CharactersInventoryOrderByWithAggregationInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
     _count?: CharactersInventoryCountOrderByAggregateInput
     _avg?: CharactersInventoryAvgOrderByAggregateInput
@@ -5380,10 +5244,6 @@ export namespace Prisma {
     NOT?: CharactersInventoryScalarWhereWithAggregatesInput | CharactersInventoryScalarWhereWithAggregatesInput[]
     characterId?: IntWithAggregatesFilter<"CharactersInventory"> | number
     itemCode?: IntWithAggregatesFilter<"CharactersInventory"> | number
-    itemName?: StringWithAggregatesFilter<"CharactersInventory"> | string
-    itemHealth?: IntWithAggregatesFilter<"CharactersInventory"> | number
-    itemPower?: IntWithAggregatesFilter<"CharactersInventory"> | number
-    itemPrice?: IntWithAggregatesFilter<"CharactersInventory"> | number
     itemCount?: IntWithAggregatesFilter<"CharactersInventory"> | number
   }
 
@@ -5393,20 +5253,12 @@ export namespace Prisma {
     NOT?: CharactersEquipmentWhereInput | CharactersEquipmentWhereInput[]
     characterId?: IntFilter<"CharactersEquipment"> | number
     itemCode?: IntFilter<"CharactersEquipment"> | number
-    itemName?: StringFilter<"CharactersEquipment"> | string
-    itemHealth?: IntFilter<"CharactersEquipment"> | number
-    itemPower?: IntFilter<"CharactersEquipment"> | number
-    itemPrice?: IntFilter<"CharactersEquipment"> | number
     character?: XOR<CharactersRelationFilter, CharactersWhereInput>
   }
 
   export type CharactersEquipmentOrderByWithRelationInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     character?: CharactersOrderByWithRelationInput
   }
 
@@ -5417,20 +5269,12 @@ export namespace Prisma {
     NOT?: CharactersEquipmentWhereInput | CharactersEquipmentWhereInput[]
     characterId?: IntFilter<"CharactersEquipment"> | number
     itemCode?: IntFilter<"CharactersEquipment"> | number
-    itemName?: StringFilter<"CharactersEquipment"> | string
-    itemHealth?: IntFilter<"CharactersEquipment"> | number
-    itemPower?: IntFilter<"CharactersEquipment"> | number
-    itemPrice?: IntFilter<"CharactersEquipment"> | number
     character?: XOR<CharactersRelationFilter, CharactersWhereInput>
   }, "characterId_itemCode">
 
   export type CharactersEquipmentOrderByWithAggregationInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     _count?: CharactersEquipmentCountOrderByAggregateInput
     _avg?: CharactersEquipmentAvgOrderByAggregateInput
     _max?: CharactersEquipmentMaxOrderByAggregateInput
@@ -5444,10 +5288,6 @@ export namespace Prisma {
     NOT?: CharactersEquipmentScalarWhereWithAggregatesInput | CharactersEquipmentScalarWhereWithAggregatesInput[]
     characterId?: IntWithAggregatesFilter<"CharactersEquipment"> | number
     itemCode?: IntWithAggregatesFilter<"CharactersEquipment"> | number
-    itemName?: StringWithAggregatesFilter<"CharactersEquipment"> | string
-    itemHealth?: IntWithAggregatesFilter<"CharactersEquipment"> | number
-    itemPower?: IntWithAggregatesFilter<"CharactersEquipment"> | number
-    itemPrice?: IntWithAggregatesFilter<"CharactersEquipment"> | number
   }
 
   export type AccountsCreateInput = {
@@ -5569,10 +5409,6 @@ export namespace Prisma {
 
   export type CharactersInventoryCreateInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
     character: CharactersCreateNestedOneWithoutCharactersInventoryInput
   }
@@ -5580,19 +5416,11 @@ export namespace Prisma {
   export type CharactersInventoryUncheckedCreateInput = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
   }
 
   export type CharactersInventoryUpdateInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
     character?: CharactersUpdateOneRequiredWithoutCharactersInventoryNestedInput
   }
@@ -5600,102 +5428,58 @@ export namespace Prisma {
   export type CharactersInventoryUncheckedUpdateInput = {
     characterId?: IntFieldUpdateOperationsInput | number
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersInventoryCreateManyInput = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
   }
 
   export type CharactersInventoryUpdateManyMutationInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersInventoryUncheckedUpdateManyInput = {
     characterId?: IntFieldUpdateOperationsInput | number
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentCreateInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     character: CharactersCreateNestedOneWithoutCharactersEquipmentInput
   }
 
   export type CharactersEquipmentUncheckedCreateInput = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
   }
 
   export type CharactersEquipmentUpdateInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     character?: CharactersUpdateOneRequiredWithoutCharactersEquipmentNestedInput
   }
 
   export type CharactersEquipmentUncheckedUpdateInput = {
     characterId?: IntFieldUpdateOperationsInput | number
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentCreateManyInput = {
     characterId: number
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
   }
 
   export type CharactersEquipmentUpdateManyMutationInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentUncheckedUpdateManyInput = {
     characterId?: IntFieldUpdateOperationsInput | number
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -5874,48 +5658,30 @@ export namespace Prisma {
   export type CharactersInventoryCountOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
   }
 
   export type CharactersInventoryAvgOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
   }
 
   export type CharactersInventoryMaxOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
   }
 
   export type CharactersInventoryMinOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
   }
 
   export type CharactersInventorySumOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
     itemCount?: SortOrder
   }
 
@@ -5927,44 +5693,26 @@ export namespace Prisma {
   export type CharactersEquipmentCountOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
   }
 
   export type CharactersEquipmentAvgOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
   }
 
   export type CharactersEquipmentMaxOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
   }
 
   export type CharactersEquipmentMinOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemName?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
   }
 
   export type CharactersEquipmentSumOrderByAggregateInput = {
     characterId?: SortOrder
     itemCode?: SortOrder
-    itemHealth?: SortOrder
-    itemPower?: SortOrder
-    itemPrice?: SortOrder
   }
 
   export type CharactersCreateNestedManyWithoutAccountInput = {
@@ -6293,19 +6041,11 @@ export namespace Prisma {
 
   export type CharactersInventoryCreateWithoutCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
   }
 
   export type CharactersInventoryUncheckedCreateWithoutCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
   }
 
@@ -6321,18 +6061,10 @@ export namespace Prisma {
 
   export type CharactersEquipmentCreateWithoutCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
   }
 
   export type CharactersEquipmentUncheckedCreateWithoutCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
   }
 
   export type CharactersEquipmentCreateOrConnectWithoutCharacterInput = {
@@ -6391,10 +6123,6 @@ export namespace Prisma {
     NOT?: CharactersInventoryScalarWhereInput | CharactersInventoryScalarWhereInput[]
     characterId?: IntFilter<"CharactersInventory"> | number
     itemCode?: IntFilter<"CharactersInventory"> | number
-    itemName?: StringFilter<"CharactersInventory"> | string
-    itemHealth?: IntFilter<"CharactersInventory"> | number
-    itemPower?: IntFilter<"CharactersInventory"> | number
-    itemPrice?: IntFilter<"CharactersInventory"> | number
     itemCount?: IntFilter<"CharactersInventory"> | number
   }
 
@@ -6420,10 +6148,6 @@ export namespace Prisma {
     NOT?: CharactersEquipmentScalarWhereInput | CharactersEquipmentScalarWhereInput[]
     characterId?: IntFilter<"CharactersEquipment"> | number
     itemCode?: IntFilter<"CharactersEquipment"> | number
-    itemName?: StringFilter<"CharactersEquipment"> | string
-    itemHealth?: IntFilter<"CharactersEquipment"> | number
-    itemPower?: IntFilter<"CharactersEquipment"> | number
-    itemPrice?: IntFilter<"CharactersEquipment"> | number
   }
 
   export type CharactersCreateWithoutCharactersInventoryInput = {
@@ -6571,70 +6295,38 @@ export namespace Prisma {
 
   export type CharactersInventoryCreateManyCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
     itemCount: number
   }
 
   export type CharactersEquipmentCreateManyCharacterInput = {
     itemCode: number
-    itemName: string
-    itemHealth?: number
-    itemPower?: number
-    itemPrice?: number
   }
 
   export type CharactersInventoryUpdateWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersInventoryUncheckedUpdateWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersInventoryUncheckedUpdateManyWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
     itemCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentUpdateWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentUncheckedUpdateWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
   export type CharactersEquipmentUncheckedUpdateManyWithoutCharacterInput = {
     itemCode?: IntFieldUpdateOperationsInput | number
-    itemName?: StringFieldUpdateOperationsInput | string
-    itemHealth?: IntFieldUpdateOperationsInput | number
-    itemPower?: IntFieldUpdateOperationsInput | number
-    itemPrice?: IntFieldUpdateOperationsInput | number
   }
 
 

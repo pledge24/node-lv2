@@ -1,5 +1,6 @@
 import express from 'express';
-import { prisma } from '../utils/prisma/prisma_gameDataClient.js';
+import { prisma } from '../utils/prisma/prisma_userClient.js';
+import { prisma as prisma_gameData } from '../utils/prisma/prisma_gameDataClient.js';
 
 const router = express.Router();
 
@@ -23,7 +24,7 @@ router.post('/items', async (req, res) => {
     const { itemCode, itemName, itemStat, itemPrice } = req.body;
 
     // items모델에 해당 itemCode를 가진 데이터를 찾습니다.
-    const Item = await prisma.items.findUnique({
+    const Item = await prisma_gameData.items.findUnique({
       where: {
         itemCode: +itemCode,
       },
@@ -39,13 +40,13 @@ router.post('/items', async (req, res) => {
     const itemData = {
       itemCode: +itemCode,
       itemName,
-      itemHealth: +itemStat.health ?? 0,
-      itemPower: +itemStat.power ?? 0,
+      itemHealth: itemStat.health ?? 0,
+      itemPower: itemStat.power ?? 0,
       itemPrice: +itemPrice,
     };
 
     // items모델에 새로운 '아이템'을 추가합니다.
-    const item = await prisma.items.create({
+    const item = await prisma_gameData.items.create({
       data: itemData,
     });
 
@@ -79,7 +80,7 @@ router.patch('/items/:itemCode', async (req, res) => {
     const { itemName, itemStat } = req.body;
 
     // items모델에 해당 itemCode를 가진 데이터를 찾습니다.
-    const item = await prisma.items.findUnique({
+    const item = await prisma_gameData.items.findUnique({
       where: { itemCode: +itemCode },
     });
 
@@ -100,10 +101,43 @@ router.patch('/items/:itemCode', async (req, res) => {
     };
 
     // 아이템을 수정(update) 합니다.
-    const updatedItem = await prisma.items.update({
+    const updatedItem = await prisma_gameData.items.update({
       where: { itemCode: +itemCode },
       data: updatedData,
     });
+
+    // 조정된 스텟을 저장합니다.
+    const adjustingStat = {
+      itemHealth: -item.itemHealth + updatedData.itemHealth,
+      itemPower: -item.itemPower + updatedData.itemPower,
+    }
+
+    // 해당 아이템을 장착한 캐릭터 데이터들을 가져옵니다.
+    const adjustTargetCharacters = await prisma.charactersEquipment.findMany({
+      where:{
+        itemCode: +itemCode
+      }
+    });
+
+    // 해당 아이템을 장착한 캐릭터의 스텟을 수정합니다.
+    if(adjustTargetCharacters.length > 0){
+      for(let targetCharacter of adjustTargetCharacters){
+        await prisma.characters.update({
+          where:{
+            characterId: targetCharacter.characterId
+          },
+          data:{
+            characterHealth:{
+              increment: adjustingStat.itemHealth
+            },
+            characterPower:{
+              increment: adjustingStat.itemPower
+            }
+          }
+        });
+      }
+      
+    }
 
     // 아이템 수정 성공 시, 해당 사실을 수정된 아이템 정보화 함께 클라이언트에 전달합니다.
     return res.status(200).json({
@@ -122,7 +156,7 @@ router.patch('/items/:itemCode', async (req, res) => {
 router.get('/items', async (req, res) => {
   try {
     // items 모델을 사용해, DB에서 'itemCode'값이 낮은 순으로 정렬해 가져옵니다.
-    const items = await prisma.items.findMany({
+    const items = await prisma_gameData.items.findMany({
       select: {
         itemCode: true,
         itemName: true,
@@ -151,7 +185,7 @@ router.get('/items/:itemCode', async (req, res) => {
 
     // 상세 조회하려는 '아이템'을 가져옵니다.
     // 만약, 해당 ID값을 가진 '아이템'이 없다면, 없다는 사실을 클라이언트에게 전달합니다.
-    const item = await prisma.items.findUnique({
+    const item = await prisma_gameData.items.findUnique({
       where: { itemCode: +itemCode },
     });
     if (!item) {
