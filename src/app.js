@@ -13,7 +13,7 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('./assets')); 
+app.use(express.static('./assets'));
 
 const router = express.Router();
 
@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
   return res.json({ message: 'Hi! See you again!' });
 });
 
-app.use('/api', [router, AccountsRouter, CharactersRouter, ItemsRouter]); 
+app.use('/api', [router, AccountsRouter, CharactersRouter, ItemsRouter]);
 app.use(ErrorHandlingMiddleware);
 
 app.listen(PORT, () => {

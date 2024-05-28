@@ -86,11 +86,9 @@ router.patch('/items/:itemCode', async (req, res) => {
 
     // 만약 해당 아이템이 존재하지 않는 경우, 해당 사실을 클라이언트에 전달합니다.
     if (!item) {
-      return res
-        .status(404)
-        .json({
-          errorMessage: `해당 아이템(ID: ${itemCode})은 존재하지 않습니다`,
-        });
+      return res.status(404).json({
+        errorMessage: `해당 아이템(ID: ${itemCode})은 존재하지 않습니다`,
+      });
     }
 
     // 수정된 아이템 데이터를 저장합니다.
@@ -110,33 +108,32 @@ router.patch('/items/:itemCode', async (req, res) => {
     const adjustingStat = {
       itemHealth: -item.itemHealth + updatedData.itemHealth,
       itemPower: -item.itemPower + updatedData.itemPower,
-    }
+    };
 
     // 해당 아이템을 장착한 캐릭터 데이터들을 가져옵니다.
     const adjustTargetCharacters = await prisma.charactersEquipment.findMany({
-      where:{
-        itemCode: +itemCode
-      }
+      where: {
+        itemCode: +itemCode,
+      },
     });
 
     // 해당 아이템을 장착한 캐릭터의 스텟을 수정합니다.
-    if(adjustTargetCharacters.length > 0){
-      for(let targetCharacter of adjustTargetCharacters){
+    if (adjustTargetCharacters.length > 0) {
+      for (let targetCharacter of adjustTargetCharacters) {
         await prisma.characters.update({
-          where:{
-            characterId: targetCharacter.characterId
+          where: {
+            characterId: targetCharacter.characterId,
           },
-          data:{
-            characterHealth:{
-              increment: adjustingStat.itemHealth
+          data: {
+            characterHealth: {
+              increment: adjustingStat.itemHealth,
             },
-            characterPower:{
-              increment: adjustingStat.itemPower
-            }
-          }
+            characterPower: {
+              increment: adjustingStat.itemPower,
+            },
+          },
         });
       }
-      
     }
 
     // 아이템 수정 성공 시, 해당 사실을 수정된 아이템 정보화 함께 클라이언트에 전달합니다.
@@ -189,11 +186,9 @@ router.get('/items/:itemCode', async (req, res) => {
       where: { itemCode: +itemCode },
     });
     if (!item) {
-      return res
-        .status(404)
-        .json({
-          errorMessage: `해당 아이템(ID: ${itemCode})은 존재하지 않습니다`,
-        });
+      return res.status(404).json({
+        errorMessage: `해당 아이템(ID: ${itemCode})은 존재하지 않습니다`,
+      });
     }
 
     // 보이고자 하는 '아이템'정보를 필터링해 filterdItems에 저장합니다.

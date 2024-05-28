@@ -379,7 +379,7 @@ router.delete('/characters/:characterId/sellItems', auth, async (req, res) => {
         where: {
           itemCode: +itemCode,
         },
-      }); 
+      });
 
       // 해당 아이템의 판매 금액을 총 판매 금액에 추가합니다.
       totalPrice += item_info.itemPrice * +count * 0.6;
@@ -487,7 +487,7 @@ router.get('/characters/:characterId/inventory', auth, async (req, res) => {
     const inventoryItemInfo = await prisma.charactersInventory.findMany({
       select: {
         itemCode: true,
-        itemCount: true
+        itemCount: true,
       },
       where: {
         characterId: +characterId,
@@ -495,9 +495,9 @@ router.get('/characters/:characterId/inventory', auth, async (req, res) => {
     });
 
     let inventory = [];
-    for(let item_info of inventoryItemInfo){
+    for (let item_info of inventoryItemInfo) {
       const itemInfo = await prisma_gamedata.items.findUnique({
-        select:{
+        select: {
           itemCode: true,
           itemName: true,
         },
@@ -550,14 +550,14 @@ router.get('/characters/:characterId/equippedItems', async (req, res) => {
         characterId: +characterId,
       },
       orderBy: {
-        itemCode: "asc"
-      }
+        itemCode: 'asc',
+      },
     });
 
     let equippedItems = [];
-    for(let item_code of equippedItemCodes){
+    for (let item_code of equippedItemCodes) {
       const itemInfo = await prisma_gamedata.items.findUnique({
-        select:{
+        select: {
           itemCode: true,
           itemName: true,
         },
@@ -639,24 +639,20 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
     // 만약 해당 아이템을 소지하고 있지 않거나, 이미 장착한 아이템이라면,
     // 해당 사실을 클라이언트에 전달합니다.
     if (!item) {
-      return res
-        .status(404)
-        .json({
-          errormessage: `itemCode: ${itemCode}는 소지하고 있지 않은 아이템입니다.`,
-        });
+      return res.status(404).json({
+        errormessage: `itemCode: ${itemCode}는 소지하고 있지 않은 아이템입니다.`,
+      });
     } else if (equippingItem) {
-      return res
-        .status(409)
-        .json({
-          errormessage: `itemCode: ${itemCode}는 이미 장착한 아이템입니다.`,
-        });
+      return res.status(409).json({
+        errormessage: `itemCode: ${itemCode}는 이미 장착한 아이템입니다.`,
+      });
     }
 
     // 장착할 아이템에 대한 정보를 items 모델에서 가져옵니다.
     const equippingItemInfo = await prisma_gamedata.items.findUnique({
-      where:{
-        itemCode: +itemCode
-      }
+      where: {
+        itemCode: +itemCode,
+      },
     });
 
     // MySQL과 연결된 Prisma 클라이언트를 통해 트랜잭션을 실행합니다.
@@ -682,7 +678,8 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
         // 그렇지 않으면(아이템의 개수가 1개인 경우) 해당 아이템의 레코드를 삭제합니다.
         if (inventoryItem.itemCount - 1 > 0) {
           await tx.charactersInventory.update({
-            where: {  // 2개 이상 소지한 경우
+            where: {
+              // 2개 이상 소지한 경우
               characterId_itemCode: {
                 characterId: +characterId,
                 itemCode: +itemCode,
@@ -694,7 +691,8 @@ router.post('/characters/:characterId/equip', auth, async (req, res) => {
               },
             },
           });
-        } else {  // 1개만 소지하고 있는 경우
+        } else {
+          // 1개만 소지하고 있는 경우
           await tx.charactersInventory.delete({
             where: {
               characterId_itemCode: {
@@ -790,18 +788,16 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
 
     // 해당 아이템 장착 데이터가 존재하지 않는다면, 해당 사실을 클라이언트에 전달합니다.
     if (!unequippingItem) {
-      return res
-        .status(404)
-        .json({
-          errormessage: `itemCode: ${itemCode}는 장착하지 않은 아이템입니다.`,
-        });
+      return res.status(404).json({
+        errormessage: `itemCode: ${itemCode}는 장착하지 않은 아이템입니다.`,
+      });
     }
 
     // 탈착할 아이템에 대한 정보를 items 모델에서 가져옵니다.
     const unequippingItemInfo = await prisma_gamedata.items.findUnique({
-      where:{
-        itemCode: +itemCode
-      }
+      where: {
+        itemCode: +itemCode,
+      },
     });
 
     // MySQL과 연결된 Prisma 클라이언트를 통해 트랜잭션을 실행합니다.
@@ -816,7 +812,6 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
         },
       });
 
-      
       // 캐릭터-인벤토리 DB에서 해당 characterId, itemCode를 가지는 데이터를 가져옵니다.
       const inventoryItem = await tx.charactersInventory.findFirst({
         where: {
@@ -827,7 +822,8 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
 
       // 만약 데이터가 존재한다면 아이템의 개수를 1 증가시킵니다,
       // 그렇지 않으면(해당 아이템을 소지하고 있지 않는 경우) 해당 아이템의 레코드를 생성합니다.
-      if (inventoryItem) {  // 소지하고 있는 경우.
+      if (inventoryItem) {
+        // 소지하고 있는 경우.
         await tx.charactersInventory.update({
           where: {
             characterId_itemCode: {
@@ -841,7 +837,8 @@ router.delete('/characters/:characterId/unequip', auth, async (req, res) => {
             },
           },
         });
-      } else {  // 소지하고 있지 않은 경우
+      } else {
+        // 소지하고 있지 않은 경우
         await tx.charactersInventory.create({
           data: {
             characterId: +characterId,
