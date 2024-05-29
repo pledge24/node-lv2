@@ -1,3 +1,6 @@
+### API 명세서 링크
+https://unmarred-september-484.notion.site/Node-Lv2-API-652d3f0f68194871a6a5102356e962df
+
 ### **1. 암호화 방식**
 
 ### **비밀번호를 DB에 저장할 때 Hash를 이용했는데, Hash는 단방향 암호화와 양방향 암호화 중 어떤 암호화 방식에 해당할까요?**
